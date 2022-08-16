@@ -60,12 +60,15 @@ class _TableScreenState extends State<TableScreen> {
                                 height: 30,
                                 width: 30,
                               ),
-                        team['team']['name'].toString().length > 11
-                            ? Text(team['team']['name']
-                                    .toString()
-                                    .substring(0, 11) +
-                                '...')
-                            : Text(team['team']['name'].toString()),
+                        Container(
+                          padding: EdgeInsets.only(left: 15),
+                          child: team['team']['name'].toString().length > 11
+                              ? Text(team['team']['name']
+                                      .toString()
+                                      .substring(0, 11) +
+                                  '...')
+                              : Text(team['team']['name'].toString()),
+                        ),
                       ],
                     ),
                   ],
