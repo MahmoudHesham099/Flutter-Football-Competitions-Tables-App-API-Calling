@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:footballapp/Screens/TableScreen.dart';
-import 'package:footballapp/Widgets/LeagueContainer.dart';
+import 'package:footballapp/Widgets/league_container.dart';
+import 'package:footballapp/screens/table_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {

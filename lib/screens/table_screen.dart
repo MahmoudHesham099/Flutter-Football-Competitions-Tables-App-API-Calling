@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
@@ -7,18 +6,23 @@ import 'package:http/http.dart' as http;
 class TableScreen extends StatefulWidget {
   final String code;
 
-  const TableScreen({Key key, this.code}) : super(key: key);
+  const TableScreen({
+    Key? key,
+    required this.code,
+  }) : super(key: key);
   @override
-  _TableScreenState createState() => _TableScreenState();
+  State<TableScreen> createState() => _TableScreenState();
 }
 
 class _TableScreenState extends State<TableScreen> {
-  List _table;
+  List? _table;
 
   getTable() async {
     http.Response response = await http.get(
-        'http://api.football-data.org/v2/competitions/${widget.code}/standings',
-        headers: {'X-Auth-Token': '86014f6025ae430dba078acc94bb2647'});
+        Uri.parse(
+          'http://api.football-data.org/v4/competitions/${widget.code}/standings',
+        ),
+        headers: {'X-Auth-Token': '2a0c9c6d6ed54f4abcad9eaa86a26eed'});
     String body = response.body;
     Map data = jsonDecode(body);
     List table = data['standings'][0]['table'];
@@ -29,7 +33,9 @@ class _TableScreenState extends State<TableScreen> {
 
   Widget buildTable() {
     List<Widget> teams = [];
-    for (var team in _table) {
+    for (var team in _table ?? []) {
+      var crestUrl = team['team']['crest'].toString();
+      var lastThree = crestUrl.substring(crestUrl.length - 3);
       teams.add(
         Padding(
           padding: const EdgeInsets.all(10),
@@ -43,11 +49,17 @@ class _TableScreenState extends State<TableScreen> {
                         : Text(" " + team['position'].toString() + ' - '),
                     Row(
                       children: [
-                        SvgPicture.network(
-                          team['team']['crestUrl'],
-                          height: 30,
-                          width: 30,
-                        ),
+                        lastThree == 'png'
+                            ? Image.network(
+                                team['team']['crest'],
+                                height: 30,
+                                width: 30,
+                              )
+                            : SvgPicture.network(
+                                team['team']['crest'],
+                                height: 30,
+                                width: 30,
+                              ),
                         team['team']['name'].toString().length > 11
                             ? Text(team['team']['name']
                                     .toString()

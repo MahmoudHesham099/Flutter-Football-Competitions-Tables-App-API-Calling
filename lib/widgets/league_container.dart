@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 class LeagueContainer extends StatelessWidget {
   final String image;
 
-  const LeagueContainer({Key key, this.image}) : super(key: key);
+  const LeagueContainer({
+    Key? key,
+    required this.image,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
