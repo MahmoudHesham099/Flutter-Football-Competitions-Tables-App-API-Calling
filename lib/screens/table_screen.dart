@@ -22,7 +22,7 @@ class _TableScreenState extends State<TableScreen> {
         Uri.parse(
           'http://api.football-data.org/v4/competitions/${widget.code}/standings',
         ),
-        headers: {'X-Auth-Token': '2a0c9c6d6ed54f4abcad9eaa86a26eed'});
+        headers: {'X-Auth-Token': '86014f6025ae430dba078acc94bb2647'});
     String body = response.body;
     Map data = jsonDecode(body);
     List table = data['standings'][0]['table'];
